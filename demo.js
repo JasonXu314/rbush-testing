@@ -9,19 +9,22 @@ function rdm() {
 module.exports = (small) => {
 	const param = small ? 10 : 100;
 	manualSearch = [];
-	
+
 	for (let i = 0; i < 1_000_000; i++) {
-		const x = rdm(), y = rdm(), z = rdm();
-	
+		const x = rdm(),
+			y = rdm(),
+			z = rdm();
+
 		if (x < param && y < param && z < param) {
 			manualSearch.push(i);
 		}
-	
-		tree.insert({ maxX: x, minX: x, maxY: y, minY: y, maxZ: z, minZ: z, tag: i });
+
+		tree.insert({ maxX: x, minX: x, maxY: y, minY: y, maxZ: z, minZ: z, tag: i, foo: { deeply: { nested: 'property' } } });
 	}
-	
+
 	const results = tree.search({ minX: 0, maxX: param, minY: 0, maxY: param, minZ: 0, maxZ: param });
-	
+	console.log(results[0].foo);
+
 	// let noMatch = false;
 	// for (const tag of manualSearch) {
 	// 	if (!results.some((res) => res.tag === tag)) {
@@ -29,11 +32,11 @@ module.exports = (small) => {
 	// 		noMatch = true;
 	// 	}
 	// }
-	
+
 	// if (!noMatch) {
 	// 	console.log('All tags match');
 	// }
-	
+
 	console.log(results);
 	console.log(manualSearch);
-}
+};
